@@ -1,19 +1,24 @@
 import React from "react";
 import Button from "../UI/Button";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const ProductsList = ({ products }) => {
   return (
     <div>
-      {products.map((el, index) => {
+      {products.map((el) => {
         return (
-          <List key={index}>
-            <li>{el.title}</li>
-            <Link  to={`/details`}>
+          <NavLink
+            style={{ textDecoration: "none" }}
+            key={el.id}
+            to={`/products/${el.id}/productDetails`}
+          >
+            <List>
+              <li>{el.title}</li>
+
               <Button>Details</Button>
-            </Link>
-          </List>
+            </List>
+          </NavLink>
         );
       })}
     </div>
@@ -28,7 +33,12 @@ const List = styled.ul`
   border-radius: 5px;
   background-color: white;
   padding: 1rem;
-  list-style: none;
-  font-size: large;
+
   margin-bottom: 2rem;
+  li {
+    list-style: none;
+    font-size: large;
+    color: black;
+    font-weight: bold;
+  }
 `;

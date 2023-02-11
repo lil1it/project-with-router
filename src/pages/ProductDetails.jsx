@@ -1,51 +1,51 @@
-import React from "react";
-import { Router, useParams } from "react-router";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
+import Button from "../component/UI/Button";
 
-const products = [
-  {
-    title: "something - 1",
-    id: new Date().toISOString(),
-    amount: 50,
-    price: 2500,
-  },
-  {
-    title: "something - 2",
-    id: new Date().toISOString(),
-    amount: 16,
-    price: 1250,
-  },
-  {
-    title: "something - 3",
-    id: new Date().toISOString(),
-    amount: 6,
-    price: 432,
-  },
-  {
-    title: "something - 4",
-    id: new Date().toISOString(),
-    amount: 38,
-    price: 4780,
-  },
-];
+const ProductDetails = ({ products }) => {
+  const param = useParams();
+  const [post, setPost] = useState({});
 
-const ProductDetails = () => {
-  const params = useParams();
-
-  const product = products.find((product) => product.id === params.productId);
-  return(<Container>
-<p>{product.title}</p>
-<Router path={`/details/${params.productId}`}/>
-  </Container>) 
+  useEffect(() => {
+    const productFind = products.find((product) => product.id >= param.id);
+    setPost(productFind);
+  }, [products, param.id]);
+  return (
+    <Container>
+      <List>
+        <h1>{post.name}</h1>
+        <h3> amount :{post.amount}</h3>
+        <h2>$ {post.price}</h2>
+      </List>
+      <Link to="/products">
+        <Button>Back</Button>
+      </Link>
+    </Container>
+  );
 };
 
 export default ProductDetails;
 
 const Container = styled.div`
+
   width: 50%;
   margin: 3rem;
-  align-self: center;
+  align-self: flex-start;
   display: flex;
   flex-direction: column;
-  margin-bottom: 10rem;
+
+
+`;
+const List = styled.ul`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  border-radius: 5px;
+  background-color: white;
+  padding:2rem;
+  list-style: none;
+  font-size: large;
+  margin-bottom: 2rem;
 `;

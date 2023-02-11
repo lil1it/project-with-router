@@ -5,7 +5,7 @@ import styled from "styled-components";
 const Header = () => {
   return (
     <>
-      {" "}
+  
       <HeaderStyle>
         <h2>LOGO</h2>
         <div>
